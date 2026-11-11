@@ -1,49 +1,382 @@
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@import "tailwindcss";
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer utilities {
+  .bg-primary-gradient {
+    background-image: linear-gradient(
+      to right,
+      #102e68,
+      #0a347b,
+      #103b7c
+    );
   }
 }
 
-html {
-  height: 100%;
+@theme {
+  --color-primary: #fc3030;
+  --color-secondary: #2563eb;
+  --color-btn-primary: #0a2b66;
+  --color-heading: #0d2c65;
+  --color-footerColor: #071E4A;
+  --color-yellowHighlight: #ffbf24;
+  --color-bgWhite: #f3f5fb;
 }
 
-html,
-body {
-  max-width: 100vw;
-  overflow-x: hidden;
+@custom-variant dark (&:where(.dark, .dark *));
+
+
+
+/* =========================================
+   HERO SECTION ANIMATIONS
+   ========================================= */
+
+.hero-section {
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
+  isolation: isolate;
 }
 
-body {
-  min-height: 100%;
-  display: flex;
-  flex-direction: column;
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* Subtle dotted background */
+.hero-dots {
+  background-image: radial-gradient(
+    circle,
+    rgba(148, 163, 184, 0.2) 1px,
+    transparent 1.5px
+  );
+  background-size: 28px 28px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent,
+    black 15%,
+    black 80%,
+    transparent
+  );
 }
 
-* {
-  box-sizing: border-box;
-  padding: 0;
-  margin: 0;
+/* Card rises, scales and fades in */
+.hero-card {
+  animation: hero-card-in 0.9s var(--ease) 0.1s both;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
+@keyframes hero-card-in {
+  from {
+    opacity: 0;
+    transform: translateY(34px) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
+/* Tagline */
+.rv-fade {
+  animation: hero-fade 0.7s var(--ease) 0.45s both;
+}
+
+@keyframes hero-fade {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Heading rises and clears blur */
+.rv-blur {
+  animation: hero-blur-in 0.7s var(--ease) 0.55s both;
+}
+
+@keyframes hero-blur-in {
+  from {
+    opacity: 0;
+    filter: blur(10px);
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+/* Paragraph and supporting copy */
+.rv {
+  animation: hero-rise 0.7s var(--ease) 0.7s both;
+}
+
+.below {
+  animation: hero-rise 0.7s var(--ease) 1.6s both;
+}
+
+@keyframes hero-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Animated gradient headline */
+.gt {
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  animation: hero-gradient 8s linear infinite;
+}
+
+@keyframes hero-gradient {
+  0% {
+    background-position: 200% 50%;
+  }
+
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Role buttons pop in sequentially */
+.rv-pop {
+  animation: hero-pop 0.7s var(--ease-pop) 0.85s both;
+}
+
+.rv-pop-delay-1 {
+  animation-delay: 0.95s;
+}
+
+.rv-pop-delay-2 {
+  animation-delay: 1.05s;
+}
+
+@keyframes hero-pop {
+  0% {
+    opacity: 0;
+    transform: translateY(18px) scale(0.88);
+  }
+  70% {
+    opacity: 1;
+    transform: translateY(-3px) scale(1.025);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Role button hover interaction */
+.hero-section .group:hover {
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.25);
+}
+
+.hero-section .group:active {
+  transform: scale(0.97);
+}
+
+/* Category chips appear in sequence */
+.chip {
+  opacity: 0;
+  animation: hero-chip-in 0.7s var(--ease)
+    calc(1.1s + var(--chip-index) * 0.08s) both;
+}
+
+@keyframes hero-chip-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.chip:hover {
+  transform: translateY(-3px);
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.chip:active {
+  transform: scale(0.96);
+}
+
+/* Divider draws out from the center */
+.divider {
+  transform: scaleX(0);
+  transform-origin: center;
+  animation: hero-divider 0.9s var(--ease) 1.25s both;
+}
+
+@keyframes hero-divider {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Meet Aria area appears last */
+.meet {
+  animation: hero-rise 0.7s var(--ease) 1.4s both;
+}
+
+/* Pulsing Meet Aria button */
+.ask {
+  animation: hero-ask-pulse 3s ease-in-out 2.1s infinite;
+}
+
+@keyframes hero-ask-pulse {
+  0%,
+  100% {
+    box-shadow:
+      0 0 0 8px rgba(252, 48, 48, 0.06),
+      0 12px 30px rgba(252, 48, 48, 0.2);
+  }
+  50% {
+    box-shadow:
+      0 0 0 14px rgba(252, 48, 48, 0.12),
+      0 12px 34px rgba(252, 48, 48, 0.3);
+  }
+}
+
+.ask:hover {
+  animation: none;
+  transform: scale(1.06);
+}
+
+/* Floating background icons */
+.floater {
+  animation: hero-float 7s ease-in-out infinite alternate;
+}
+
+.floater-one {
+  animation-delay: -1s;
+}
+
+.floater-two {
+  animation-delay: -3s;
+}
+
+.floater-three {
+  animation-delay: -5s;
+}
+
+@keyframes hero-float {
+  from {
+    transform: translateY(-18px) rotate(-6deg);
+  }
+  to {
+    transform: translateY(18px) rotate(6deg);
+  }
+}
+
+/* Ambient glow blobs drift slowly */
+.hero-blob-one {
+  animation: hero-blob-drift-one 18s ease-in-out infinite alternate;
+}
+
+.hero-blob-two {
+  animation: hero-blob-drift-two 22s ease-in-out infinite alternate;
+}
+
+@keyframes hero-blob-drift-one {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(90px, 60px);
+  }
+}
+
+@keyframes hero-blob-drift-two {
+  from {
+    transform: translate(0, 0);
+  }
+  to {
+    transform: translate(-80px, -55px);
+  }
+}
+
+/* Keyboard focus: high-contrast outline */
+.hero-section button:focus-visible {
+  outline: 3px solid #facc15;
+  outline-offset: 4px;
+}
+
+/* Respect system motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section *,
+  .hero-section *::before,
+  .hero-section *::after {
+    animation: none !important;
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+
+  .hero-card,
+  .rv-fade,
+  .rv-blur,
+  .rv,
+  .rv-pop,
+  .chip,
+  .meet,
+  .below {
+    opacity: 1;
+    filter: none;
+    transform: none;
+  }
+
+  .gt {
+    background-position: 50% 50%;
+  }
+
+  .divider {
+    transform: scaleX(1);
+  }
+}
+
+
+/* =========================================
+   RESOURCES PAGE
+   ========================================= */
+
+.resources-page {
+  isolation: isolate;
+}
+
+.resource-article-card {
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+.resource-article-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 32px rgba(15, 23, 42, 0.09);
+}
+
+.dark .resource-article-card:hover {
+  box-shadow: 0 14px 32px rgba(0, 0, 0, 0.25);
+}
+
+.resource-sidebar-card {
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.resources-banner {
+  isolation: isolate;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .resource-article-card,
+  .resource-sidebar-card {
+    transition: none;
+  }
+
+  .resource-article-card:hover {
+    transform: none;
   }
 }
