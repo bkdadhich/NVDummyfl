@@ -28,19 +28,7 @@ const LogoSlider = () => {
               {logos.map((logo) => (
                 <div
                   key={`${group}-${logo.id}`}
-                  className="
-                    logo-card group relative
-                    flex h-[75px] w-[145px] shrink-0
-                    items-center justify-center
-                    rounded-xl border border-black
-                    bg-white dark:bg-gray-100
-                    px-4 py-3
-                    transition-all duration-300 ease-out
-                    hover:z-20 hover:scale-110
-                    hover:border-[#fc3030]
-                    hover:shadow-[0_8px_25px_rgba(252,48,48,0.18)]
-                    sm:h-[85px] sm:w-[165px]
-                    "
+                  className="logo-card group relative flex h-[75px] w-[145px] shrink-0 items-center justify-center rounded-xl border border-black bg-white dark:bg-gray-100 px-4 py-3 transition-all duration-300 ease-out hover:z-20 hover:scale-110 hover:border-[#fc3030] hover:shadow-[0_8px_25px_rgba(252,48,48,0.18)] sm:h-[85px] sm:w-[165px]"           
                 >
                   <Image
                     src={logo.image}
