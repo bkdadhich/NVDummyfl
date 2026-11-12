@@ -156,8 +156,16 @@ export default function ServicesSection({
           </p>
 
           <div className="mt-5">
-            <ActionButton onClick={onPostProject}>Post a project</ActionButton>
-          </div>
+          <button
+            type="button"
+            onClick={onPostProject}
+            className="btn-style"
+          >
+            <span className="relative z-10">
+              Post a project
+            </span>
+          </button>
+        </div>
         </div>
       </div>
     </section>

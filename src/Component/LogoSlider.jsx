@@ -37,7 +37,7 @@ const LogoSlider = () => {
                     px-4 py-3
                     transition-all duration-300 ease-out
                     hover:z-20 hover:scale-110
-                    hover:border-[#fc3030]
+                    hover:border-primary
                     hover:shadow-[0_8px_25px_rgba(252,48,48,0.18)]
                     sm:h-[85px] sm:w-[165px]
                     "

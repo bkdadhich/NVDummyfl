@@ -76,7 +76,7 @@ export default function ProjectDiscoverySection({
             <button
               type="button"
               onClick={onViewProjects}
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-primary px-5 py-4 text-sm font-bold text-white shadow-[0_10px_25px_rgba(252,48,48,0.22)] transition-all duration-300 hover:-translate-y-1 hover:bg-red-600 hover:shadow-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 sm:px-6 sm:text-base"
+              className="btn-style"
             >
               View Projects
             </button>
@@ -84,7 +84,7 @@ export default function ProjectDiscoverySection({
             <button
               type="button"
               onClick={onPostProject}
-              className="inline-flex min-h-[56px] items-center justify-center rounded-full bg-[#0d1b3b] px-5 py-4 text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#17366d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 sm:px-6 sm:text-base"
+              className="inline-flex min-h-[44px] items-center px-6 py-2 justify-center rounded-full bg-[#0d1b3b] text-sm font-bold text-white transition-all duration-300 hover:-translate-y-1 hover:bg-[#17366d] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950 sm:text-base"
             >
               Post a Project
             </button>

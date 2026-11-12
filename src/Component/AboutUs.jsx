@@ -402,12 +402,14 @@ export default function About() {
               {/* Action Buttons */}
               <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
 
-                <Link
-                  href="/post-requirement"
-                  className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-bold text-white shadow-[0_8px_20px_rgba(252,48,48,0.22)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#e62929] hover:shadow-[0_10px_24px_rgba(252,48,48,0.3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-950"
-                >
+              <Link
+                href="/post-requirement"
+                className="btn-style"
+              >
+                <span className="relative z-10">
                   Post a Requirement
-                </Link>
+                </span>
+              </Link>
 
                 <Link
                   href="/become-provider"
@@ -465,11 +467,11 @@ export default function About() {
                   return (
                     <div
                       key={index}
-                      className="flex min-h-[50px] items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-[#eef2fb] px-3 py-3 transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800/80 dark:hover:border-blue-500/50 dark:hover:bg-slate-800 sm:px-4"
+                      className="flex min-h-[50px] items-center justify-between gap-3 rounded-xl border border-slate-200/80 bg-aboutCardBg px-3 py-3 transition-all duration-300 hover:border-blue-200 hover:bg-blue-50 dark:border-slate-700 dark:bg-slate-800/80 dark:hover:border-blue-500/50 dark:hover:bg-slate-800 sm:px-4"
                     >
                       {/* Step Icon and Title */}
                       <div className="flex min-w-0 items-center gap-3">
-                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-[#2563eb] dark:bg-slate-700 dark:text-blue-300">
+                        <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white text-lucideIconColor dark:bg-slate-700 dark:text-blue-300">
                           <Icon size={17} strokeWidth={2} />
                         </div>
 
@@ -494,7 +496,7 @@ export default function About() {
       </section>
      
       {/* Who Freevance Serves */}
-      <section className="relative isolate overflow-hidden bg-gradient-to-br from-[#1d5ca8] via-[#06469a] to-[#174777] px-4 py-14 transition-colors duration-300 dark:from-[#071d42] dark:via-[#082f68] dark:to-[#102b4b] sm:px-6 sm:py-16 lg:px-8 lg:py-12">
+      <section className="relative isolate overflow-hidden bg-section-gradient px-4 py-14 transition-colors duration-300 sm:px-6 sm:py-16 lg:px-8 lg:py-12">
 
         {/* Background glow */}
         <div className="pointer-events-none absolute -left-32 top-0 -z-10 h-[450px] w-[450px] rounded-full bg-blue-400/20 blur-[120px]" />
@@ -537,7 +539,7 @@ export default function About() {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-base font-bold leading-snug text-[#172747] dark:text-white sm:text-[19px]">
+                  <h3 className="text-base font-bold leading-snug text-black dark:text-white sm:text-[19px]">
                     {group.title}
                   </h3>
 
@@ -573,7 +575,7 @@ export default function About() {
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
               From Requirement{" "}
-              <span className="text-[#ff3038]">to Completion</span>
+              <span className="text-primary">to Completion</span>
             </h2>
           </div>
 
@@ -595,7 +597,7 @@ export default function About() {
                   "Completed projects keep their documentation and history",
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="mt-[9px] h-2.5 w-2.5 shrink-0 rounded-full bg-[#ff3038]" />
+                    <span className="mt-[9px] h-2.5 w-2.5 shrink-0 rounded-full bg-primary" />
                     <span className="text-base leading-relaxed text-btn-primary dark:text-slate-300 sm:text-md">
                       {item}
                     </span>
@@ -605,7 +607,7 @@ export default function About() {
 
               <Link
                 href="/how-it-works"
-                className="inline-flex min-h-[54px] items-center justify-center rounded-full bg-[#ff3038] px-7 py-3 text-base font-bold text-white shadow-[0_10px_24px_rgba(255,48,56,0.22)] transition-all duration-300 hover:-translate-y-1 hover:bg-[#e9252d] hover:shadow-[0_14px_28px_rgba(255,48,56,0.3)]"
+                className="btn-style"
               >
                 See How It Works
               </Link>
@@ -652,14 +654,14 @@ export default function About() {
                 <span className="text-lg font-bold text-btn-primary dark:text-white sm:text-lg">
                   Freevance fee
                 </span>
-                <span className="text-lg font-bold text-[#ff3038] sm:text-lg">
+                <span className="text-lg font-bold text-primary sm:text-lg">
                   $200.00
                 </span>
               </div>
 
               {/* Fee gradient indicator */}
               <div className="mt-6 h-2.5 w-full overflow-hidden rounded-full bg-slate-200 dark:bg-slate-700">
-                <div className="h-full w-full rounded-full bg-gradient-to-r from-[#ff3038] via-[#873b87] to-[#0752b9]" />
+                <div className="h-full w-full rounded-full freevance-gradient" />
               </div>
 
               <p className="mt-3 text-sm leading-relaxed text-slate-500 dark:text-slate-400 sm:text-base">
@@ -671,7 +673,7 @@ export default function About() {
       </section>      
      
       {/* Standards, Accountability & Trust */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#205da8] via-[#06449a] to-[#17436f] px-5 py-14 text-white transition-colors sm:px-8">
+      <section className="relative overflow-hidden bg-section-gradient px-5 py-14 text-white transition-colors sm:px-8">
         <div className="mx-auto max-w-5xl">
           {/* Section heading */}
           <div className="mb-12 text-center">
@@ -700,7 +702,7 @@ export default function About() {
                   "Compliance review for tax forms, agreements and public-sector requirements",
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-[#ffbd17]" />
+                    <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-yellowHighlight" />
                     <span className="text-base leading-relaxed text-white/95 sm:text-md">
                       {item}
                     </span>
@@ -735,7 +737,9 @@ export default function About() {
                   return (
                     <div
                       key={index}
-                      className="flex min-h-[64px] items-center gap-4 rounded-2xl border border-[#dce5f5] bg-[#eef3fc] px-4 py-4 transition-all duration-300 hover:-translate-y-0.5 hover:border-[#b9cbea] hover:shadow-sm sm:px-5"
+                      className="flex min-h-[64px] items-center gap-4 rounded-2xl border border-slate-100 
+                      bg-aboutCardBg px-4 py-4 transition-all duration-300 hover:-translate-y-0.5 
+                      hover:border-slate-300 hover:shadow-sm sm:px-5"
                     >
                       <Icon
                         size={23}
@@ -743,7 +747,7 @@ export default function About() {
                         className="shrink-0 text-btn-primary"
                       />
 
-                      <p className="text-sm font-bold leading-relaxed text-[#17294c] sm:text-base">
+                      <p className="text-sm font-bold leading-relaxed text-black sm:text-base">
                         {item.title}
                       </p>
                     </div>
@@ -762,7 +766,7 @@ export default function About() {
           <div className="mb-12 text-center">
             <h2 className="text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
               The Hyper V Solutions{" "}
-              <span className="text-[#ff3038]">Ecosystem</span>
+              <span className="text-primary">Ecosystem</span>
             </h2>
           </div>
 
@@ -797,9 +801,9 @@ export default function About() {
                   },
                 ].map((item, index) => (
                   <li key={index} className="flex items-start gap-3">
-                    <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-[#ff3038]" />
+                    <span className="mt-[9px] h-2 w-2 shrink-0 rounded-full bg-primary" />
 
-                    <p className="text-base leading-relaxed text-btn-primary dark:text-slate-200 sm:text-lg">
+                    <p className="text-base leading-relaxed text-btn-primary text-slate-600 dark:text-slate-200 sm:text-md">
                       <strong className="font-bold">{item.name}</strong>
                       {" — "}
                       {item.description}
@@ -808,7 +812,7 @@ export default function About() {
                 ))}
               </ul>
 
-              <p className="mt-5 text-base leading-relaxed text-btn-primary dark:text-slate-300 sm:text-lg">
+              <p className="mt-5 text-base leading-relaxed text-btn-primary text-slate-600 dark:text-slate-300 sm:text-md">
                 For applicable engagements, providers operating through
                 Freevance/Hyper V Solutions may perform services under the
                 applicable subcontracting or project-delivery structure.
@@ -830,7 +834,7 @@ export default function About() {
       <LogoSlider/>
 
     {/* Value highlights and final CTA - footer intentionally omitted */}
-    <section className="relative overflow-hidden bg-gradient-to-r from-[#1555a5] via-[#064394] to-[#1c4776] px-4 py-12 sm:px-6 sm:py-14 lg:px-8 dark:from-[#101f3b] dark:via-[#102c58] dark:to-[#172d49]">
+    <section className="relative overflow-hidden bg-section-gradient px-4 py-12 sm:px-6 sm:py-14 lg:px-8">
       {/* Background decoration */}
       <div className="pointer-events-none absolute -left-24 top-0 h-64 w-64 rounded-full bg-blue-400/10 blur-3xl" />
       <div className="pointer-events-none absolute -right-20 bottom-0 h-64 w-64 rounded-full bg-blue-300/10 blur-3xl" />
@@ -844,7 +848,7 @@ export default function About() {
           <div className="flex min-h-[156px] flex-col items-center justify-center rounded-[22px] border border-white/70 bg-white px-4 py-6 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900">
             <CheckCircle2 className="mb-4 h-9 w-9 text-emerald-500" strokeWidth={2.2} />
 
-            <h3 className="text-lg font-bold text-[#172544] dark:text-white">
+            <h3 className="text-lg font-bold text-black dark:text-white">
               Skill-verified providers
             </h3>
 
@@ -857,7 +861,7 @@ export default function About() {
           <div className="flex min-h-[156px] flex-col items-center justify-center rounded-[22px] border border-white/70 bg-white px-4 py-6 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900">
             <ReceiptText className="mb-4 h-9 w-9 text-indigo-500" strokeWidth={2} />
 
-            <h3 className="text-lg font-bold text-[#172544] dark:text-white">
+            <h3 className="text-lg font-bold text-black dark:text-white">
               Pay per milestone
             </h3>
 
@@ -870,7 +874,7 @@ export default function About() {
           <div className="flex min-h-[156px] flex-col items-center justify-center rounded-[22px] border border-white/70 bg-white px-4 py-6 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900">
             <ShieldCheck className="mb-4 h-9 w-9 text-blue-500" strokeWidth={2} />
 
-            <h3 className="text-lg font-bold text-[#172544] dark:text-white">
+            <h3 className="text-lg font-bold text-black dark:text-white">
               Requirements reviewed
             </h3>
 
@@ -883,7 +887,7 @@ export default function About() {
           <div className="flex min-h-[156px] flex-col items-center justify-center rounded-[22px] border border-white/70 bg-white px-4 py-6 text-center shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-xl dark:border-slate-700 dark:bg-slate-900">
             <MessageCircle className="mb-4 h-9 w-9 text-violet-500" strokeWidth={2} />
 
-            <h3 className="text-lg font-bold text-[#172544] dark:text-white">
+            <h3 className="text-lg font-bold text-black dark:text-white">
               Real support
             </h3>
 
@@ -899,21 +903,29 @@ export default function About() {
 
           <Link
             href="/post-requirement"
-            className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-primary px-7 text-base font-bold text-white shadow-lg shadow-red-950/20 transition duration-300 hover:-translate-y-1 hover:brightness-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-blue-800 sm:w-auto"
+            className="btn-style"
           >
             Post a Requirement
           </Link>
 
           <Link
             href="#/become-provider"
-            className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-white px-7 text-base font-bold text-[#0a2b66] shadow-sm transition duration-300 hover:-translate-y-1 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:w-auto dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800"
+            className="inline-flex min-h-11 w-full items-center justify-center 
+            rounded-full bg-white px-7 text-base font-bold text-btn-primary
+            shadow-sm transition duration-300 hover:-translate-y-1 hover:bg-slate-100 
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white 
+            sm:w-auto dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800"
           >
             Become a Provider
           </Link>
 
           <Link
             href="mailto:support@freevance.com"
-            className="inline-flex min-h-14 w-full items-center justify-center rounded-full bg-white px-7 text-base font-bold text-[#0a2b66] shadow-sm transition duration-300 hover:-translate-y-1 hover:bg-slate-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white sm:w-auto dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800"
+            className="inline-flex min-h-11 w-full items-center justify-center 
+            rounded-full bg-white px-7 text-base font-bold text-btn-primary shadow-sm 
+            transition duration-300 hover:-translate-y-1 hover:bg-slate-100 
+            focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white 
+            sm:w-auto dark:bg-slate-900 dark:text-white dark:hover:bg-slate-800"
           >
             Contact us
           </Link>

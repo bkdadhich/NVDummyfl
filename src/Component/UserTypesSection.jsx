@@ -107,8 +107,18 @@ function UserTypeCard({
 
         {/* Actions */}
         <div className="mt-8 flex flex-wrap items-center gap-3">
-          <ActionButton onClick={onPrimaryClick}>{primaryLabel}</ActionButton>
+          {/* Primary Orange Button */}
+          <button
+            type="button"
+            onClick={onPrimaryClick}
+            className="btn-style"
+          >
+            <span className="relative z-10">
+              {primaryLabel}
+            </span>
+          </button>
 
+          {/* Existing Learn More Button */}
           <ActionButton variant="secondary" onClick={onSecondaryClick}>
             {secondaryLabel}
           </ActionButton>

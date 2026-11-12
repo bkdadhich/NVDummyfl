@@ -9,6 +9,72 @@
       #103b7c
     );
   }
+  .bg-section-gradient {
+    background-image: linear-gradient(
+      to right,
+      #1d5ca8,
+      #06469a,
+      #174777
+    );
+  }
+  .freevance-gradient {
+    background-image: linear-gradient(
+      to right,
+      #ff3038,
+      #873b87,
+      #0752b9
+    );
+  }  
+  .blog-orange-gradient {
+    @apply bg-gradient-to-r from-[#ff6b70] to-[#ff3037];
+  }
+  .blog-blue-gradient {
+    @apply bg-gradient-to-r from-[#1c5bb8] to-[#347cf1];
+  }
+  .blog-light-blue-gradient {
+    @apply bg-gradient-to-r from-[#4078ee] to-[#5599f6];
+  }
+}
+
+@layer components {
+  .btn-style {
+    @apply relative isolate inline-flex min-h-[44px] items-center justify-center
+    overflow-hidden rounded-full bg-primary px-6 py-3 text-sm font-bold text-white
+    shadow-[0_8px_20px_rgba(252,48,48,0.22)]
+    transition-all duration-300
+    hover:-translate-y-0.5 hover:bg-[#e62929]
+    hover:shadow-[0_10px_24px_rgba(252,48,48,0.3)]
+    focus-visible:outline-none focus-visible:ring-2
+    focus-visible:ring-primary focus-visible:ring-offset-2
+    dark:focus-visible:ring-offset-slate-950;
+  }
+
+  .btn-style::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -75%;
+    width: 50%;
+    transform: skewX(-25deg);
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(255, 255, 255, 0.4),
+      transparent
+    );
+    transition: transform 700ms ease;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .btn-style:hover::before {
+    transform: translateX(300%) skewX(-25deg);
+  }
+
+  .btn-style > * {
+    @apply relative z-10;
+  }
 }
 
 @theme {
@@ -19,6 +85,12 @@
   --color-footerColor: #071E4A;
   --color-yellowHighlight: #ffbf24;
   --color-bgWhite: #f3f5fb;
+  --color-aboutCardBg: #eef2fb;
+  --color-lucideIconColor: #2563eb;
+  --color-lightBlack: #3d4149;
+  --color-tealColor: #35c4c5;
+  --color-indigoColor: #514d86;
+  --color-darkBlue: #0a2b66;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

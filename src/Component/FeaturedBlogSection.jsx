@@ -12,7 +12,7 @@ const blogPosts = [
     excerpt:
       "Paying a whole project upfront is risky. Paying at the very end is risky too. Milestones address both.",
     emoji: "💳",
-    artwork: "from-[#ff6b70] to-[#ff3037]",
+    artwork: "blog-orange-gradient",
     href: "/blog/milestone-payments",
   },
   {
@@ -24,7 +24,7 @@ const blogPosts = [
     excerpt:
       "The quality of the responses you receive depends on the quality of your requirement. Here is a simple template.",
     emoji: "📝",
-    artwork: "from-[#1c5bb8] to-[#347cf1]",
+    artwork: "blog-blue-gradient",
     href: "/blog/write-a-requirement",
   },
   {
@@ -36,7 +36,7 @@ const blogPosts = [
     excerpt:
       "No feedback yet? These habits help newer providers stand out in a response list.",
     emoji: "🚀",
-    artwork: "from-[#4078ee] to-[#5599f6]",
+    artwork: "blog-light-blue-gradient",
     href: "/blog/strong-opportunity-response",
   },
 ];
@@ -47,11 +47,11 @@ export default function FeaturedBlogSection({
   onReadMore,
 }) {
   return (
-    <section className="bg-[#f3f5fb] px-4 py-12 text-slate-800 transition-colors dark:bg-slate-950 dark:text-slate-100 sm:px-6 lg:px-8 lg:py-16">
+    <section className="bg-bgWhite px-4 py-12 text-slate-800 transition-colors dark:bg-slate-950 dark:text-slate-100 sm:px-6 lg:px-8 lg:py-16">
       <div className="mx-auto max-w-[1320px]">
         <div className="mb-7 flex items-start justify-between gap-4 sm:mb-8">
           <div>
-            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-[#0a2b66] dark:text-white sm:text-4xl lg:text-[42px]">
+            <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-darkBlue dark:text-white sm:text-4xl lg:text-[42px]">
               Featured <span className="text-primary">Blog</span>
             </h2>
             <p className="mt-2 text-sm text-slate-600 dark:text-slate-400 sm:text-base">
@@ -109,7 +109,7 @@ export default function FeaturedBlogSection({
                   {post.category}
                 </p>
 
-                <h3 className="mt-3 text-lg font-bold leading-7 text-[#0a2b66] dark:text-white sm:text-xl">
+                <h3 className="mt-3 text-lg font-bold leading-7 text-black dark:text-white sm:text-xl">
                   <a
                     href={post.href || "/blog"}
                     onClick={(event) => onReadMore?.(post, event)}
