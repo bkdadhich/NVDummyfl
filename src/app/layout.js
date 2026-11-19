@@ -5,7 +5,8 @@ import Navbar from "@/Component/Navbar";
 import BackToTop from "@/Component/BackToTop";
 import AriaAssistant from "@/Component/AriaAssistant";
 import ReadingProgress from "@/Component/ReadingProgress";
-import GoogleTranslateLoader from "@/Component/GoogleTranslateLoader";
+import GoogleTranslate from "@/Component/GoogleTranslate";
+import CookieConsent from "@/Component/CookieConsent";
 
 
 const geistSans = Geist({
@@ -27,13 +28,14 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        <GoogleTranslateLoader/>
+        <GoogleTranslate/>
         <ReadingProgress />
         <Navbar />
         {children}
         <Footer />
         <BackToTop />
         <AriaAssistant />
+        <CookieConsent />
       </body>
     </html>
   );

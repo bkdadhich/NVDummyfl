@@ -5,6 +5,8 @@ import { useEffect } from "react";
 
 export default function GoogleTranslateLoader() {
   useEffect(() => {
+    let script = document.getElementById("google-translate-script");
+
     const initializeGoogleTranslate = () => {
       if (!window.google?.translate?.TranslateElement) return;
 
@@ -29,32 +31,40 @@ export default function GoogleTranslateLoader() {
       container.dataset.initialized = "true";
     };
 
-    window.googleTranslateElementInit =
-      initializeGoogleTranslate;
+    window.googleTranslateElementInit = initializeGoogleTranslate;
 
-    if (!document.getElementById("google-translate-script")) {
-      const script = document.createElement("script");
-
+    if (!script) {
+      script = document.createElement("script");
       script.id = "google-translate-script";
       script.src =
         "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
-
       document.body.appendChild(script);
-    } else {
+    } else if (window.google?.translate?.TranslateElement) {
       initializeGoogleTranslate();
+    } else {
+      script.addEventListener("load", initializeGoogleTranslate);
     }
 
     return () => {
-      delete window.googleTranslateElementInit;
+      if (script) {
+        script.removeEventListener("load", initializeGoogleTranslate);
+      }
     };
   }, []);
 
   return (
     <div
       id="google_translate_element"
-      className="notranslate hidden"
-      translate="no"
+      aria-hidden="true"
+      style={{
+        position: "absolute",
+        left: "-9999px",
+        top: 0,
+        width: "1px",
+        height: "1px",
+        overflow: "hidden",
+      }}
     />
   );
 }

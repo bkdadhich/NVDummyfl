@@ -292,30 +292,48 @@ export default function LanguageSelector() {
   }, [isOpen]);
 
   // Handle language selection
-  const handleSelectLanguage = (lang) => {
-    setSelectedLang(lang);
-    setIsOpen(false);
-    setSearchQuery("");
+  
+const handleSelectLanguage = (lang) => {
+  const targetCode = lang.code;
 
-    const targetCode = lang.code;
+  setSelectedLang(lang);
+  setIsOpen(false);
+  setSearchQuery("");
 
-    try {
-      localStorage.setItem("app_language", targetCode);
-    } catch {}
+  try {
+    localStorage.setItem("app_language", targetCode);
+  } catch (error) {
+    console.error("Unable to save language:", error);
+  }
 
-    // Clear previous Google Translate cookie
+  // Remove previous Google Translate cookies.
+  const hostname = window.location.hostname;
+
+  const cookieDomains = [
+    "",
+    hostname,
+    hostname.includes(".")
+      ? "." + hostname.split(".").slice(-2).join(".")
+      : "",
+  ];
+
+  cookieDomains.forEach((domain) => {
+    const domainPart = domain ? `; domain=${domain}` : "";
+
     document.cookie =
-      "googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
+      `googtrans=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/${domainPart}`;
+  });
 
-    // Set selected language
-    if (targetCode !== "en") {
-      document.cookie =
-        `googtrans=/en/${targetCode}; path=/; SameSite=Lax`;
-    }
+  // Set the selected language.
+  if (targetCode !== "en") {
+    document.cookie =
+      `googtrans=/en/${targetCode}; path=/; SameSite=Lax`;
+  }
 
-    // Reload so Google Translate applies the cookie
-    window.location.reload();
-  };
+  // Reload the complete page to apply translation.
+  window.location.reload();
+};
+
 
   // Filter languages
   const filteredLanguages = LANGUAGES.filter((item) => {

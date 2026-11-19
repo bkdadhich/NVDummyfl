@@ -13,21 +13,21 @@ const footerLinks = [
   {
     title: "Platform",
     links: [
-      { label: "Find Services", href: "#/services" },
-      { label: "Opportunities", href: "#/opportunities" },
-      { label: "How It Works", href: "#/how" },
-      { label: "For Clients", href: "#/clients" },
-      { label: "For Providers", href: "#/providers" },
-      { label: "Post a Requirement", href: "#/post" },
+      { label: "Find Services", href: "/talents" },
+      { label: "Opportunities", href: "/projects" },
+      { label: "How It Works", href: "/how-it-works" },
+      { label: "For Clients", href: "/for-clients" },
+      { label: "For Providers", href: "/for-providers" },
+      { label: "Post a Requirement", href: "/post-requirement" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About", href: "#/about" },
-      { label: "Resources", href: "#/resources" },
-      { label: "Support", href: "#/support" },
-      { label: "Skill tests", href: "#/skills" },
+      { label: "About", href: "/about" },
+      { label: "Resources", href: "/resources" },
+      { label: "Support", href: "/support" },
+      { label: "Skill tests", href: "/skills" },
       { label: "Contact", href: "mailto:support@freevance.com" },
     ],
   },
@@ -290,7 +290,11 @@ export default function Footer() {
 
               <button
                 type="button"
-                onClick={openCookieSettings}
+                onClick={() => {
+                  window.dispatchEvent(
+                    new Event("freevance:open-cookie-preferences")
+                  );
+                }}
                 className="text-left text-sm text-slate-300 underline decoration-slate-500 underline-offset-4 transition-colors hover:text-white"
               >
                 Do Not Sell or Share My Personal Information

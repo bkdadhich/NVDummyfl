@@ -314,7 +314,7 @@ export default function ProjectsPage() {
                       )}
                     </div>
                     <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-300">{project.description}</p>
-                    <a href={project.href || "#/opportunities"} className="mt-4 inline-flex items-center font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">View opportunity <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></a>
+                    <a href={project.href || "/projects"} className="mt-4 inline-flex items-center font-semibold text-blue-600 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">View opportunity <ArrowRight aria-hidden="true" className="ml-2 h-4 w-4" /></a>
                   </article>
                 ))}
               </div>
@@ -331,7 +331,7 @@ export default function ProjectsPage() {
                   <button type="button" onClick={clearFilters} className="rounded-xl border border-slate-300 bg-white px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700">
                     Clear filters
                   </button>
-                  <a href="#/post" className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">
+                  <a href="/post-requirement" className="rounded-xl bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white transition hover:bg-blue-700 dark:bg-blue-500 dark:hover:bg-blue-400">
                     Post a requirement
                   </a>
                 </div>

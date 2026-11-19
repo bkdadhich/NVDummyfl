@@ -100,7 +100,7 @@ export default function TalentPage() {
           Browse service categories and qualified providers. Can&apos;t find the
           right match?{" "}
           <a
-            href="#/post"
+            href="/post-requirement"
             className="font-semibold text-primary transition-colors dark:text-secondary dark:decoration-secondary dark:hover:text-secondary"
           >
             Post a Requirement
@@ -242,7 +242,7 @@ export default function TalentPage() {
               <p className="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600 dark:text-slate-400">
                 Try another category or search term, or{" "}
                 <a
-                  href="#/post"
+                  href="/post-requirement"
                   className="font-semibold text-blue-600 underline underline-offset-4 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-300"
                 >
                   post a requirement

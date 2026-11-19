@@ -1,286 +1,99 @@
+
 "use client";
 
-import { useMemo, useState } from "react";
 import Link from "next/link";
+import { useMemo, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import {
+  Search,
+  CalendarDays,
+  Clock3,
+  ArrowRight,
+  Copy,
+  Check,
+  Share2,
   CreditCard,
   FilePenLine,
   Rocket,
   ReceiptText,
   Globe2,
-  Landmark,
   FileText,
   Scale,
   Medal,
-  Search,
-  UserRound,
-  CalendarDays,
-  Linkedin,
-  Clock3,
-  Tag,
-  Copy,
-  Check,
-  Share2,
-  ArrowRight,
-  BookOpen,
+  X,
 } from "lucide-react";
+
 import {
-  FaFacebookF,
-  FaLinkedinIn,
-  FaXTwitter,
-  FaWhatsapp,
-} from "react-icons/fa6";
+  articles,
+  categories,
+  tags,
+  formatDate,
+} from "@/data/resourcesData";
 
+const iconMap = {
+  CreditCard,
+  FilePenLine,
+  Rocket,
+  ReceiptText,
+  Globe2,
+  FileText,
+  Scale,
+  Medal,
+};
 
-const articles = [
-  {
-    id: 1,
-    title: "How milestone payments protect clients and providers",
-    description:
-      "Paying a whole project upfront is risky. Paying at the very end is risky too. Milestones address both.",
-    category: "Payments",
-    date: "Sep 24, 2026",
-    readTime: "4 min read",
-    icon: CreditCard,
-    gradient: "from-[#ff777d] to-[#fa3038]",
-    tags: ["Payments", "Milestones", "Clients", "Providers"],
-    slug: "milestone-payments-protect-clients-and-providers",
-  },
-  {
-    id: 2,
-    title: "How to write a requirement that attracts qualified responses",
-    description:
-      "The quality of the responses you receive depends on the quality of your requirement. Here is a simple template.",
-    category: "Clients",
-    date: "Sep 17, 2026",
-    readTime: "5 min read",
-    icon: FilePenLine,
-    gradient: "from-[#3677d5] to-[#2876e8]",
-    tags: ["Requirements", "Clients", "Scope"],
-    slug: "write-a-requirement-that-attracts-qualified-responses",
-  },
-  {
-    id: 3,
-    title: "How to submit a strong response to an opportunity",
-    description:
-      "No feedback yet? These habits help newer providers stand out in a response list.",
-    category: "Providers",
-    date: "Sep 10, 2026",
-    readTime: "5 min read",
-    icon: Rocket,
-    gradient: "from-[#5595f0] to-[#3485ed]",
-    tags: ["Providers", "Opportunities", "Responses"],
-    slug: "submit-a-strong-response-to-an-opportunity",
-  },
-  {
-    id: 4,
-    title: "W-9 vs W-8BEN: the tax forms providers need",
-    description:
-      "A plain-English guide to which form you submit before your first payment. (Educational only, not tax advice.)",
-    category: "Taxes",
-    date: "Sep 3, 2026",
-    readTime: "4 min read",
-    icon: ReceiptText,
-    gradient: "from-[#31b66c] to-[#35d477]",
-    tags: ["W-9", "W-8BEN", "Taxes", "Providers"],
-    slug: "w9-vs-w8ben-tax-forms-providers-need",
-  },
-  {
-    id: 5,
-    title: "Engaging providers across borders: a client's checklist",
-    description:
-      "Time zones, ownership and payment protection: what to settle before day one.",
-    category: "Clients",
-    date: "Aug 27, 2026",
-    readTime: "6 min read",
-    icon: Globe2,
-    gradient: "from-[#16a8c1] to-[#13c4d9]",
-    tags: ["International", "Clients", "Payments"],
-    slug: "engaging-providers-across-borders",
-  },
-  {
-    id: 6,
-    title: "Public-sector requirements: what providers should prepare",
-    description:
-      "Documents and credentials that commonly matter when responding to a public-sector requirement.",
-    category: "Public sector",
-    date: "Aug 20, 2026",
-    readTime: "6 min read",
-    icon: Landmark,
-    gradient: "from-[#64748b] to-[#94a3b8]",
-    tags: ["Public sector", "Compliance", "Credentials"],
-    slug: "public-sector-requirements-providers-prepare",
-  },
-  {
-    id: 7,
-    title: "Resume tips that get past applicant tracking systems",
-    description:
-      "Most US employers use an applicant tracking system. Here is how to make sure your resume is read.",
-    category: "Resume",
-    date: "Aug 7, 2026",
-    readTime: "4 min read",
-    icon: FileText,
-    gradient: "from-[#d94691] to-[#ed65b0]",
-    tags: ["Resume", "ATS", "Career"],
-    slug: "resume-tips-applicant-tracking-systems",
-  },
-  {
-    id: 8,
-    title: "Fixed price or hourly: choosing a commercial structure",
-    description:
-      "A quick guide, and why milestones combine the strengths of both.",
-    category: "Pricing",
-    date: "Aug 5, 2026",
-    readTime: "3 min read",
-    icon: Scale,
-    gradient: "from-[#e99a27] to-[#ffc21d]",
-    tags: ["Pricing", "Contracts", "Milestones"],
-    slug: "fixed-price-or-hourly-commercial-structure",
-  },
-  {
-    id: 9,
-    title: "Product update: credentials, verification badges and response ranking",
-    description:
-      "Providers can add credentials and earn category badges. Verified responses are shown first.",
-    category: "Product",
-    date: "Jul 29, 2026",
-    readTime: "2 min read",
-    icon: Medal,
-    gradient: "from-[#1556bd] to-[#2465ed]",
-    tags: ["Product", "Credentials", "Providers"],
-    slug: "credentials-verification-badges-response-ranking",
-  },
-];
-
-const categories = [
-  { name: "Payments & Taxes", count: 2 },
-  { name: "Requirements", count: 1 },
-  { name: "Providers", count: 1 },
-  { name: "Public Sector", count: 1 },
-  { name: "Resume & Career", count: 1 },
-  { name: "Product Updates", count: 1 },
-];
-
-const tags = [
-  "ATS",
-  "Badges",
-  "Career",
-  "Clients",
-  "Compliance",
-  "Contracts",
-  "Credentials",
-  "IP",
-  "International",
-  "Milestones",
-  "Opportunities",
-  "Payments",
-  "Pricing",
-  "Product",
-  "Providers",
-  "Public sector",
-  "Requirements",
-  "Responses",
-  "Resume",
-  "Scope",
-  "Taxes",
-  "W-8BEN",
-  "W-9",
-];
-
-function ResourceCard({ article }) {
-  const Icon = article.icon;
-
-  return (
-    <article className="resource-article-card overflow-hidden rounded-xl border border-slate-100 bg-white shadow-[0_5px_20px_rgba(15,23,42,0.06)] transition-all duration-300 dark:border-slate-800 dark:bg-slate-900">
-      <Link
-        href={`/resources/${article.slug}`}
-        aria-label={`Read ${article.title}`}
-        className={`flex h-[135px] items-center justify-center bg-gradient-to-br ${article.gradient} sm:h-[150px]`}
-      >
-        <Icon
-          className="h-12 w-12 text-white drop-shadow-md sm:h-14 sm:w-14"
-          strokeWidth={1.6}
-          aria-hidden="true"
-        />
-      </Link>
-
-      <div className="p-4 sm:px-5 sm:py-4">
-        <div className="mb-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] text-slate-500 dark:text-slate-400">
-          <span className="inline-flex items-center gap-1">
-            <UserRound size={12} />
-            Freevance Team
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <CalendarDays size={12} />
-            {article.date}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <Clock3 size={12} />
-            {article.readTime}
-          </span>
-          <span className="inline-flex items-center gap-1">
-            <Tag size={12} />
-            {article.category}
-          </span>
-        </div>
-
-        <Link href={`/resources/${article.slug}`}>
-          <h2 className="text-[15px] font-bold leading-snug text-slate-900 transition-colors hover:text-primary dark:text-white dark:hover:text-primary sm:text-base">
-            {article.title}
-          </h2>
-        </Link>
-
-        <p className="mt-2 line-clamp-2 text-xs leading-relaxed text-slate-500 dark:text-slate-400 sm:text-[13px]">
-          {article.description}
-        </p>
-
-        <Link
-          href={`/resources/${article.slug}`}
-          className="mt-3 inline-flex items-center gap-1 text-xs font-bold text-primary transition-all hover:gap-2"
-        >
-          Read More
-          <ArrowRight size={13} />
-        </Link>
-      </div>
-    </article>
-  );
-}
-
-export default function ResourcesPage() {
-  const [searchQuery, setSearchQuery] = useState("");
+export default function Resources() {
+  const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("");
   const [activeTag, setActiveTag] = useState("");
   const [copied, setCopied] = useState(false);
 
+  const searchParams = useSearchParams();
+  const tagFromUrl = searchParams.get("tag");
+
+  useEffect(() => {
+    if (tagFromUrl) {
+      setActiveTag(tagFromUrl);
+      setActiveCategory("");
+    }
+  }, [tagFromUrl]);
+
   const filteredArticles = useMemo(() => {
-    const query = searchQuery.toLowerCase().trim();
+    return [...articles]
+      .filter((article) => {
+        const matchesCategory =
+          !activeCategory || article.category === activeCategory;
 
-    return articles.filter((article) => {
-      const matchesSearch =
-        !query ||
-        article.title.toLowerCase().includes(query) ||
-        article.description.toLowerCase().includes(query) ||
-        article.category.toLowerCase().includes(query) ||
-        article.tags.some((tag) => tag.toLowerCase().includes(query));
+        const matchesTag =
+          !activeTag || article.tags.includes(activeTag);
 
-      const matchesCategory =
-        !activeCategory ||
-        article.category.toLowerCase() === activeCategory.toLowerCase() ||
-        article.tags.some(
-          (tag) => tag.toLowerCase() === activeCategory.toLowerCase(),
-        );
+        const searchText = [
+          article.title,
+          article.excerpt,
+          article.category,
+          ...article.tags,
+        ]
+          .join(" ")
+          .toLowerCase();
 
-      const matchesTag =
-        !activeTag ||
-        article.tags.some(
-          (tag) => tag.toLowerCase() === activeTag.toLowerCase(),
-        );
+        const matchesSearch =
+          !search || searchText.includes(search.toLowerCase());
 
-      return matchesSearch && matchesCategory && matchesTag;
-    });
-  }, [searchQuery, activeCategory, activeTag]);
+        return matchesCategory && matchesTag && matchesSearch;
+      })
+      .sort((a, b) => b.date.localeCompare(a.date));
+  }, [search, activeCategory, activeTag]);
 
-  const handleCopyLink = async () => {
+  const latestPosts = [...articles]
+    .sort((a, b) => b.date.localeCompare(a.date))
+    .slice(0, 4);
+
+  const clearFilters = () => {
+    setSearch("");
+    setActiveCategory("");
+    setActiveTag("");
+  };
+
+  const copyPageLink = async () => {
     try {
       await navigator.clipboard.writeText(window.location.href);
       setCopied(true);
@@ -290,244 +103,355 @@ export default function ResourcesPage() {
     }
   };
 
-  const latestPosts = [...articles]
-    .sort((a, b) => b.id - a.id)
-    .slice(0, 4);
+  const shareUrl =
+    typeof window !== "undefined" ? window.location.href : "";
+
+  const shareLinks = [
+    {
+      label: "X",
+      href: `https://x.com/intent/post?url=${encodeURIComponent(shareUrl)}`,
+    },
+    {
+      label: "LinkedIn",
+      href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+    },
+    {
+      label: "Facebook",
+      href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+    },
+    {
+      label: "WhatsApp",
+      href: `https://wa.me/?text=${encodeURIComponent(shareUrl)}`,
+    },
+  ];
 
   return (
-    <main className="resources-page min-h-screen bg-bgWhite dark:bg-[#0b1222]">
-      {/* Page heading */}
-      <section className="resources-banner relative overflow-hidden bg-primary-gradient px-4 py-7 text-center text-white sm:py-8">
-        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.18),transparent_65%)]" />
+    <main className="resources-page bg-[#f3f5fb] text-slate-800 transition-colors duration-300 dark:bg-[#0b1428] dark:text-slate-100">
+
+      {/* Banner */}
+      <section className="resources-banner bg-primary-gradient relative overflow-hidden px-4 py-9 text-center text-white sm:py-11">
+        <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.2),transparent_65%)]" />
 
         <div className="relative z-10">
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
+          <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">
             Resources
           </h1>
 
           <nav
             aria-label="Breadcrumb"
-            className="mt-1 flex items-center justify-center gap-1 text-xs text-blue-100/80"
+            className="mt-2 flex items-center justify-center gap-2 text-sm text-blue-100"
           >
-            <Link href="/" className="transition hover:text-white">
+            <Link href="/" className="hover:text-white">
               Home
             </Link>
             <span>/</span>
             <span className="font-medium text-white">Resources</span>
           </nav>
+
+          <div className="mx-auto mt-4 h-1 w-16 rounded-full bg-[#ffc928]" />
         </div>
       </section>
 
-      {/* Content */}
-      <section className="px-4 py-7 sm:px-6 sm:py-9 lg:px-8 lg:py-10">
-        <div className="mx-auto grid max-w-[1000px] grid-cols-1 items-start gap-6 lg:grid-cols-[minmax(0,2fr)_minmax(270px,0.95fr)] lg:gap-7">
+      {/* Main content */}
+      <section className="mx-auto grid max-w-[1240px] grid-cols-1 gap-7 px-4 py-10 sm:px-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:gap-9 lg:py-14">
 
-          {/* Article list */}
-          <div className="min-w-0">
-            {filteredArticles.length > 0 ? (
-              <div className="grid gap-5">
-                {filteredArticles.map((article) => (
-                  <ResourceCard key={article.id} article={article} />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-2xl border border-slate-200 bg-white px-5 py-14 text-center dark:border-slate-800 dark:bg-slate-900">
-                <BookOpen className="mx-auto h-10 w-10 text-slate-400" />
-                <h2 className="mt-3 text-lg font-bold text-slate-800 dark:text-white">
+        {/* Article listing */}
+        <div className="min-w-0">
+
+          {/* <div className="mb-6">
+            <p className="text-sm font-semibold uppercase tracking-[0.15em] text-primary">
+              Freevance Insights
+            </p>
+            <h2 className="mt-2 text-2xl font-bold text-heading dark:text-white sm:text-3xl">
+              Ideas, guides and updates
+            </h2>
+            <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">
+              Explore practical guidance on hiring, freelancing, payments,
+              career development and the Freevance platform.
+            </p>
+          </div> */}          
+
+          {/* Active filters */}
+          {(activeCategory || activeTag || search) && (
+            <div className="mb-5 flex flex-wrap items-center gap-2 text-sm">
+              <span className="font-semibold text-slate-600 dark:text-slate-300">
+                {filteredArticles.length} result(s)
+              </span>
+
+              {activeCategory && (
+                <span className="rounded-full bg-blue-50 px-3 py-1 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                  {activeCategory}
+                </span>
+              )}
+
+              {activeTag && (
+                <span className="rounded-full bg-red-50 px-3 py-1 text-red-600 dark:bg-red-950 dark:text-red-300">
+                  {activeTag}
+                </span>
+              )}
+
+              <button
+                type="button"
+                onClick={clearFilters}
+                className="font-bold text-primary hover:underline"
+              >
+                Clear filters
+              </button>
+            </div>
+          )}
+
+          {/* Article cards */}
+          <div className="flex flex-col gap-6">
+            {filteredArticles.map((article) => {
+              const Icon = iconMap[article.icon] || FileText;
+
+              return (
+                <article
+                  key={article.slug}
+                  className="resource-article-card overflow-hidden rounded-[22px] border border-slate-200 bg-white shadow-sm dark:border-slate-700 dark:bg-[#111c38]"
+                >
+                  <Link
+                    href={`/resources/${article.slug}`}
+                    className="group block"
+                  >
+                    <div
+                      className="relative flex h-[170px] items-center justify-center overflow-hidden sm:h-[210px]"
+                      style={{
+                        background: `linear-gradient(135deg, ${article.gradient[0]}, ${article.gradient[1]})`,
+                      }}
+                    >
+                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_25%_20%,rgba(255,255,255,0.25),transparent_40%)]" />
+                      <Icon
+                        size={66}
+                        strokeWidth={1.3}
+                        className="relative text-white/90 transition duration-500 group-hover:scale-110"
+                      />
+                    </div>
+
+                    <div className="p-5 sm:p-6">
+                      <div className="mb-3 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-slate-500 dark:text-slate-400">
+                        <span>Freevance Team</span>
+                        <span className="inline-flex items-center gap-1">
+                          <CalendarDays size={13} />
+                          {formatDate(article.date)}
+                        </span>
+                        <span className="inline-flex items-center gap-1">
+                          <Clock3 size={13} />
+                          {article.readTime} min read
+                        </span>
+                        <span>{article.category}</span>
+                      </div>
+
+                      <h3 className="text-xl font-bold leading-snug text-heading transition-colors group-hover:text-primary dark:text-white sm:text-2xl">
+                        {article.title}
+                      </h3>
+
+                      <p className="mt-3 text-sm leading-6 text-slate-600 dark:text-slate-400 sm:text-base">
+                        {article.excerpt}
+                      </p>
+
+                      <div className="mt-4 flex flex-wrap gap-2">
+                        {article.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full bg-blue-50 px-3 py-1 text-xs font-semibold text-blue-700 dark:bg-blue-950 dark:text-blue-300"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+
+                      <span className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-primary">
+                        Read More
+                        <ArrowRight
+                          size={16}
+                          className="transition-transform group-hover:translate-x-1"
+                        />
+                      </span>
+                    </div>
+                  </Link>
+                </article>
+              );
+            })}
+
+            {filteredArticles.length === 0 && (
+              <div className="rounded-2xl border border-slate-200 bg-white px-5 py-12 text-center dark:border-slate-700 dark:bg-[#111c38]">
+                <Search className="mx-auto text-slate-400" size={34} />
+                <h3 className="mt-4 font-bold text-heading dark:text-white">
                   No articles found
-                </h2>
-                <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
+                </h3>
+                <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
                   Try another search term or clear your filters.
                 </p>
                 <button
                   type="button"
-                  onClick={() => {
-                    setSearchQuery("");
-                    setActiveCategory("");
-                    setActiveTag("");
-                  }}
-                  className="mt-4 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-white transition hover:brightness-95"
+                  onClick={clearFilters}
+                  className="btn-style mt-5"
                 >
                   Clear filters
                 </button>
               </div>
             )}
           </div>
+        </div>
 
-          {/* Sidebar */}
-          <aside className="flex flex-col gap-4 lg:sticky lg:top-24">
+        {/* Sidebar */}
+        <aside className="flex flex-col gap-5">
 
-            {/* Search */}
-            <div className="resource-sidebar-card rounded-2xl border border-slate-100 bg-white p-3 shadow-[0_5px_20px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
-              <label htmlFor="resource-search" className="sr-only">
-                Search articles
-              </label>
-              <div className="flex items-center gap-2 rounded-xl border border-slate-200 px-3 dark:border-slate-700">
-                <Search className="h-4 w-4 shrink-0 text-slate-400" />
-                <input
-                  id="resource-search"
-                  type="search"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search articles..."
-                  className="h-10 w-full bg-transparent text-sm text-slate-700 outline-none placeholder:text-slate-400 dark:text-white"
-                />
-              </div>
+          {/* Search */}
+          <div className="mb-5 flex items-center gap-3 rounded-2xl border border-slate-200 bg-white px-4 shadow-sm transition-colors dark:border-slate-700 dark:bg-[#111c38]">
+            <Search size={19} className="shrink-0 text-slate-400" />
+            <input
+              type="search"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              placeholder="Search articles..."
+              aria-label="Search resource articles"
+              className="h-10 w-full bg-transparent rounded-2xl text-sm outline-none placeholder:text-slate-400 dark:text-white"
+            />
+            {search && (
+              <button
+                type="button"
+                onClick={() => setSearch("")}
+                aria-label="Clear search"
+                className="text-slate-400 hover:text-primary"
+              >
+                <X size={17} />
+              </button>
+            )}
+          </div>
+
+          {/* Latest posts */}
+          <div className="resource-sidebar-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#111c38]">
+            <h3 className="mb-4 text-lg font-bold text-heading dark:text-white">
+              Latest Posts
+            </h3>
+
+            <div className="flex flex-col gap-4">
+              {latestPosts.map((article) => (
+                <Link
+                  key={article.slug}
+                  href={`/resources/${article.slug}`}
+                  className="group flex items-start gap-3"
+                >
+                  <div
+                    className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl text-white"
+                    style={{
+                      background: `linear-gradient(135deg, ${article.gradient[0]}, ${article.gradient[1]})`,
+                    }}
+                  >
+                    <span className="text-lg font-bold">
+                      {article.title.charAt(0)}
+                    </span>
+                  </div>
+
+                  <div className="min-w-0">
+                    <p className="line-clamp-2 text-sm font-semibold leading-5 text-slate-700 transition-colors group-hover:text-primary dark:text-slate-200">
+                      {article.title}
+                    </p>
+                    <p className="mt-1 text-xs text-slate-400">
+                      {formatDate(article.date)}
+                    </p>
+                  </div>
+                </Link>
+              ))}
             </div>
+          </div>
 
-            {/* Latest posts */}
-            <div className="resource-sidebar-card rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_5px_20px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">
-                Latest Posts
-              </h3>
+          {/* Categories */}
+          <div className="resource-sidebar-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#111c38]">
+            <h3 className="mb-4 text-lg font-bold text-heading dark:text-white">
+              Blog Categories
+            </h3>
 
-              <div className="space-y-3">
-                {latestPosts.map((article) => {
-                  const Icon = article.icon;
+            <div className="flex flex-col gap-1">
+              {categories.map((category) => {
+                const count = articles.filter(
+                  (article) => article.category === category
+                ).length;
 
-                  return (
-                    <Link
-                      key={article.id}
-                      href={`/resources/${article.slug}`}
-                      className="group flex items-start gap-3"
-                    >
-                      <div
-                        className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br ${article.gradient}`}
-                      >
-                        <Icon className="h-4 w-4 text-white" />
-                      </div>
+                const active = activeCategory === category;
 
-                      <div className="min-w-0">
-                        <p className="line-clamp-2 text-xs font-semibold leading-relaxed text-slate-700 transition-colors group-hover:text-primary dark:text-slate-200">
-                          {article.title}
-                        </p>
-                        <span className="mt-1 block text-[10px] text-slate-400">
-                          {article.date}
-                        </span>
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </div>
-
-            {/* Categories */}
-            <div className="resource-sidebar-card rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_5px_20px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">
-                Blog Categories
-              </h3>
-
-              <div className="divide-y divide-slate-100 dark:divide-slate-800">
-                {categories.map((category) => (
+                return (
                   <button
+                    key={category}
                     type="button"
-                    key={category.name}
                     onClick={() => {
-                      setActiveCategory(
-                        activeCategory === category.name ? "" : category.name,
-                      );
+                      setActiveCategory(active ? "" : category);
                       setActiveTag("");
                     }}
-                    className={`flex w-full items-center justify-between py-2 text-left text-xs transition hover:text-primary ${
-                      activeCategory === category.name
-                        ? "font-bold text-primary"
-                        : "text-slate-500 dark:text-slate-400"
+                    className={`flex items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm transition ${
+                      active
+                        ? "bg-blue-50 font-bold text-blue-700 dark:bg-blue-950 dark:text-blue-300"
+                        : "text-slate-600 hover:bg-slate-50 dark:text-slate-300 dark:hover:bg-slate-800"
                     }`}
                   >
-                    <span>{category.name}</span>
-                    <span>{category.count}</span>
+                    <span>{category}</span>
+                    <span className="text-xs font-semibold">{count}</span>
                   </button>
-                ))}
-              </div>
+                );
+              })}
             </div>
+          </div>
 
-            {/* Tags */}
-            <div className="resource-sidebar-card rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_5px_20px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">
-                Tags
-              </h3>
+          {/* Tags */}
+          <div className="resource-sidebar-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#111c38]">
+            <h3 className="mb-4 text-lg font-bold text-heading dark:text-white">
+              Tags
+            </h3>
 
-              <div className="flex flex-wrap gap-1.5">
-                {tags.map((tag) => (
-                  <button
-                    type="button"
-                    key={tag}
-                    onClick={() => {
-                      setActiveTag(activeTag === tag ? "" : tag);
-                      setActiveCategory("");
-                    }}
-                    className={`rounded-md border px-2 py-1 text-[10px] transition ${
-                      activeTag === tag
-                        ? "border-primary bg-primary text-white"
-                        : "border-slate-200 bg-slate-50 text-slate-500 hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
-                    }`}
-                  >
-                    {tag}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Share */}
-            <div className="resource-sidebar-card rounded-2xl border border-slate-100 bg-white p-4 shadow-[0_5px_20px_rgba(15,23,42,0.05)] dark:border-slate-800 dark:bg-slate-900">
-              <h3 className="mb-3 text-sm font-bold text-slate-900 dark:text-white">
-                Share
-              </h3>
-
-              <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-2">
+              {tags.map((tag) => (
                 <button
+                  key={tag}
                   type="button"
-                  onClick={handleCopyLink}
-                  aria-label="Copy page link"
-                  className="inline-flex h-8 items-center gap-1.5 rounded-md bg-[#0a2b66] px-2.5 text-[11px] font-semibold text-white transition hover:bg-primary"
+                  onClick={() => {
+                    setActiveTag(activeTag === tag ? "" : tag);
+                    setActiveCategory("");
+                  }}
+                  className={`rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                    activeTag === tag
+                      ? "border-primary bg-primary text-white"
+                      : "border-slate-200 bg-slate-50 text-slate-600 hover:border-primary hover:text-primary dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300"
+                  }`}
                 >
-                  {copied ? <Check size={13} /> : <Copy size={13} />}
-                  {copied ? "Copied" : "Copy"}
+                  {tag}
                 </button>
-
-                <a
-                  href={`https://twitter.com/intent/tweet?url=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Share on X"
-                  className="flex h-8 w-8 items-center justify-center rounded-md bg-[#0a2b66] text-white transition hover:bg-primary"
-                >
-                  <FaXTwitter size={15} />
-                </a>
-
-                <a
-                  href="https://www.linkedin.com/sharing/share-offsite/"
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Share on LinkedIn"
-                  className="flex h-8 w-8 items-center justify-center rounded-md bg-[#0a2b66] text-white transition hover:bg-primary"
-                >
-                  <FaLinkedinIn size={15} />
-                </a>
-
-                <a
-                  href={`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Share on Facebook"
-                  className="flex h-8 w-8 items-center justify-center rounded-md bg-[#0a2b66] text-white transition hover:bg-primary"
-                >
-                  <FaFacebookF size={15} />
-                </a>
-
-                <a
-                  href={`https://wa.me/?text=${encodeURIComponent(typeof window !== "undefined" ? window.location.href : "")}`}
-                  target="_blank"
-                  rel="noreferrer"
-                  aria-label="Share on WhatsApp"
-                  className="flex h-8 items-center justify-center gap-1 rounded-md bg-[#0a2b66] px-2.5 text-[11px] font-semibold text-white transition hover:bg-primary"
-                >
-                  <FaWhatsapp size={15} />
-                </a>
-              </div>
+              ))}
             </div>
-          </aside>
-        </div>
+          </div>
+
+          {/* Share */}
+          <div className="resource-sidebar-card rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-700 dark:bg-[#111c38]">
+            <h3 className="mb-4 inline-flex items-center gap-2 text-lg font-bold text-heading dark:text-white">
+              <Share2 size={18} />
+              Share Resources
+            </h3>
+
+            <button
+              type="button"
+              onClick={copyPageLink}
+              className="mb-3 flex w-full items-center justify-center gap-2 rounded-full border border-slate-200 px-4 py-2.5 text-sm font-semibold text-slate-700 transition hover:border-primary hover:text-primary dark:border-slate-700 dark:text-slate-200"
+            >
+              {copied ? <Check size={16} /> : <Copy size={16} />}
+              {copied ? "Link copied" : "Copy page link"}
+            </button>
+
+            <div className="grid grid-cols-2 gap-2">
+              {shareLinks.map((item) => (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-lg bg-slate-50 px-3 py-2 text-center text-xs font-bold text-slate-600 transition hover:bg-blue-50 hover:text-blue-700 dark:bg-slate-800 dark:text-slate-300 dark:hover:bg-slate-700"
+                >
+                  {item.label}
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
       </section>
     </main>
   );

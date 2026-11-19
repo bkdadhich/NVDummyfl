@@ -1,5 +1,11 @@
 @import "tailwindcss";
 
+.goog-te-banner-frame,
+.goog-logo-link {
+  display: none !important;
+}
+
+
 @layer utilities {
   .bg-primary-gradient {
     background-image: linear-gradient(
@@ -450,5 +456,48 @@
 
   .resource-article-card:hover {
     transform: none;
+  }
+}
+
+/* =========================================
+   RESOURCES ARTICLE DETAILS
+   ========================================= */
+
+.article-body h2 {
+  line-height: 1.4;
+}
+
+.article-body p {
+  overflow-wrap: anywhere;
+}
+
+.article-body ul {
+  padding-left: 0.25rem;
+}
+
+.article-body li {
+  padding-left: 0.25rem;
+}
+
+.resources-page a:focus-visible,
+.resources-page button:focus-visible,
+.resources-page input:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 3px;
+}
+
+/* Resource article cards */
+.resource-article-card {
+  overflow: hidden;
+}
+
+.resource-article-card .group:hover h3 {
+  color: var(--color-primary);
+}
+
+/* Responsive sidebar */
+@media (min-width: 1024px) {
+  .resources-page aside {
+    align-self: start;
   }
 }
